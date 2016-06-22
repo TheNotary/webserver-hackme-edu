@@ -40,10 +40,10 @@ RUN /bin/bash -l -c "sudo gem install bundle"
 
 RUN echo "[user]\n  email = no@email.plz\n  name = TheNotary\n[push]\n  default = matching" > /home/app/.gitconfig
 
-COPY resources/conf /etc/nginx
 
 # TODO: move this down towards the bottom... before the asm compile step though... maybe
 # these get a worked ruby demo available on port 80
+COPY resources/conf /etc/nginx
 COPY sample/web /usr/share/nginx/html
 
 

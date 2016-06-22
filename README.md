@@ -3,6 +3,7 @@ TODO:
   - re-flow Dockerfile so the index.html file is moved into place after all the installation stuff... which should be dead simple...
   - Hook in the assembly compiled cgi-bin on index.html
   - Consolidate apt-get's near by each other... but don't merge them so it's easier to extract... add comments per apt-get string especially compiling ruby
+  - Split this repo into two projects, one that's all about performance testing, and a second that's about pentesting
 
 
 # Nginx fcgiwrap Docker
@@ -27,3 +28,19 @@ Ideally you'll be able to use `ab` to create performance tests of all of these i
 Use the Makefile commands such as `make build`, `make run`, and `make console`.
 
 Access [http://localhost/](http://localhost/) to show the static site.
+
+
+## Resources on performance related stuff
+- Listing of benchmarks across various frameworks including one's I've never heard of
+  - http://www.madebymarket.com/blog/dev/ruby-web-benchmark-report.html
+
+- ab commands for doing post tests
+  - https://gist.github.com/kelvinn/6a1c51b8976acf25bd78
+
+- awk process to parse ab commands and reformat it into good looking html graphs
+  - ......
+
+
+## Pentesting Related
+
+[Pentesting Discussion](ESSAY.md)
