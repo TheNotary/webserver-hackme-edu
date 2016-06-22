@@ -108,12 +108,12 @@ RUN sudo rake install
 RUN sudo apt-get install nasm
 
 RUN sudo mkdir /assembly
-ADD /sample/assembly/correct.asm /assembly/correct.asm
+ADD /sample/assembly/hello_asm.asm /assembly/hello_asm.asm
 RUN sudo chown -R app /assembly
 WORKDIR /assembly
-RUN nasm -f elf64 correct.asm
-RUN ld -e _start -o correct_asm correct.o
-RUN sudo mv correct_asm /usr/share/nginx/html/cgi-bin/
+RUN nasm -f elf64 hello_asm.asm
+RUN ld -e _start -o hello_asm hello_asm.o
+RUN sudo mv hello_asm /usr/share/nginx/html/cgi-bin/
 
 
 ######################

@@ -34,5 +34,5 @@ len                 equ $ - msg                             ;length of our dear 
 ; Build notes...
 ; You may need to change elf64 to a different format depending on the type of OS you're running
 ; use `nasm -hf` to see a list of them
-; $ nasm -f elf64 correct.asm
-; $ ld -e _start -o correct correct.o
+; $ nasm -f elf64 hello_asm.asm
+; $ ld -e _start -o hello_asm hello_asm.o
