@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="jquery-3.0.0.min.js"></script>
+
+  <title>Hackme</title>
+</head>
+
+<body>
+  <div>
+    <ul>
+      <li>
+        There's an index page with user/pass fields, and a 'get intelligence' button
+      </li>
+      <li>
+        There's a endpoint /cgi-bin/intelegence script that gives you the intellegence
+      </li>
+      <li>
+        If you can log in and get the intellegence, you win.
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <input id="username" name="text" value="">
+    <input id="password" name="text" value="">
+
+    <button onclick="getIntelligence_onClick();">Get Intelligence</button>
+  </div>
+
+  <div id="intelligence">
+
+  </div>
+
+</body>
+
+<script>
+
+  function getIntelligence_onClick() {
+    var username = $('#username').val();
+    var password = $('#password').val();
+
+    requestIntelligence(username, password);
+  }
+
+  function requestIntelligence(username, password) {
+    var url = "/cgi-bin/intelligence";
+    var data = {
+      username: username,
+      password: password };
+
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: data,
+      success: reportIntelligence,
+    });
+  }
+
+
+  function reportIntelligence(jqxr){
+    $('#intelligence').html(jqxr.body);
+  }
+
+</script>
+
+</html>

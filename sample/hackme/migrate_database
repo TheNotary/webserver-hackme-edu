@@ -1,0 +1,37 @@
+#!/usr/bin/ruby
+
+require 'sqlite3'
+
+db = SQLite3::Database.new( "production.db" )
+
+create_table_sql = <<-EOT
+CREATE TABLE users (
+id INTEGER,
+username TEXT,
+password TEXT,
+admin INTEGER,
+PRIMARY KEY (id)
+);
+EOT
+
+
+c = <<-EOT
+CREATE TABLE users (
+id INTEGER,
+field1 TEXT,
+field2 INTEGER,
+field3 BLOB,
+PRIMARY KEY (field2, field1)
+);
+EOT
+
+
+
+
+
+create_users_sql = "INSERT INTO users (id, username, password, admin) VALUES (1, 'admin', 'password1', 1);"
+
+# rows = db.execute( c )
+
+rows = db.execute( create_table_sql )
+rows = db.execute( create_users_sql )

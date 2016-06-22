@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="jquery-3.0.0.min.js"></script>
+
+  <title>FUN!</title>
+</head>
+<body>
+
+  <h1>Text Corrector</h1>
+  <h6>Now with an even more backend feeling UI!</h6>
+
+  <div>
+    <label>un-corrected text:</label>
+    <textarea id="uncorrected_text" name="text" value="">
+      correct this text.  plz.  ok, cool. This will work.
+    </textarea>
+
+    <button onclick="correctText_onClick();">Correct Text</button>
+  </div>
+
+  <div>
+    <label>corrected text:</label>
+    <textarea id="corrected_text" name="text" value="">
+
+    </textarea>
+  </div>
+
+  <pre id="diff_display"></pre>
+
+
+  <script>
+
+    function correctText_onClick() {
+    var text = $('#uncorrected_text').val();
+
+    requestTextCorrection(text);
+    }
+
+    function requestTextCorrection(text) {
+      var url = "/rack_app/correct";
+      var data = { text: text };
+
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        success: reportCorrection,
+      });
+    }
+
+
+    function reportCorrection(jqxr){
+      $('#corrected_text').val(jqxr.body);
+      $('#diff_display').html(jqxr.diff);
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+# Exploitable Code Algo....
+
+# An SQLITE database is sitting somewhere on the docker unit
+# it has a users table wither username, password, admin
+
+# SCENARIO
+# There's an index page with user/pass fields, and a 'get intelligence' button
+# There's a endpoint /cgi-bin/intelegence script that gives you the intellegence
+# if you can log in

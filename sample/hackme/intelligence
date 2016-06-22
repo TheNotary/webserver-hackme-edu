@@ -1,0 +1,35 @@
+#!/usr/bin/ruby
+
+# curl -d 'username="admin"&password="password1"' http://127.0.0.1/cgi-bin/intelligence
+
+require 'sqlite3'
+require 'json'
+require 'cgi'
+require 'sqlite3'
+
+intelligence = "This is the intel: qzflzx"
+
+cgi = CGI.new
+username = cgi['username']
+password = cgi['password']
+
+puts "Content-type: application/json"
+puts
+
+# Setup the db
+db = SQLite3::Database.new( "production.db" )
+db.results_as_hash = true
+
+# query database by username + password
+query_user_sql = "SELECT * FROM users WHERE username = '#{username}' AND password = '#{password}';"
+user = db.execute( query_user_sql ).first
+
+# check if the retuned user is an admin
+if user.nil? or user["admin"] == 0
+  response_hash = { body: "You are not authorized to the intelligence" }
+else
+  # if it's an admin display intelligence
+  response_hash = { body: intelligence}
+end
+
+puts response_hash.to_json

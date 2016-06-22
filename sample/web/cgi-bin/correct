@@ -1,0 +1,16 @@
+#!/usr/bin/ruby
+
+# To test...
+# $  curl -d 'text="This is cool.   Right?"' http://127.0.0.1/cgi-bin/hello
+
+require 'period_opinionator'
+
+require 'json'
+require 'cgi'
+cgi = CGI.new
+text = cgi['text']
+
+puts "Content-type: application/json"
+puts
+
+puts PeriodOpinionator.correct(text).to_json

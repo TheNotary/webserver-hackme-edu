@@ -1,0 +1,8 @@
+#!/usr/bin/ruby
+
+require 'json'
+
+puts "Content-type: text/plain"
+puts
+
+puts "hello world ruby!!!"
