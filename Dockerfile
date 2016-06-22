@@ -6,6 +6,9 @@ FROM nginx:1.9.7
 
 RUN apt-get update && apt-get install -y fcgiwrap curl && apt-get clean
 
+# for compiling asm files
+RUN sudo apt-get install nasm
+
 RUN apt-get update && \
   apt-get install -y wget git nodejs ruby-dev curl patch gawk g++ gcc make libc6-dev patch libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev sudo vim && \
   apt-get clean
@@ -35,53 +38,20 @@ RUN sudo make install
 RUN sudo chown -R app /usr/lib/ruby
 
 # Install base gems
-RUN /bin/bash -l -c "sudo gem install thin"
-RUN /bin/bash -l -c "sudo gem install bundle"
+RUN sudo gem install thin
+RUN sudo gem install bundle
+RUN sudo gem install sqlite3
 
 RUN echo "[user]\n  email = no@email.plz\n  name = TheNotary\n[push]\n  default = matching" > /home/app/.gitconfig
 
-
-# TODO: move this down towards the bottom... before the asm compile step though... maybe
-# these get a worked ruby demo available on port 80
-COPY resources/conf /etc/nginx
-COPY sample/web /usr/share/nginx/html
-
-
-# Install the opinionator gem deps
-ADD sample/rails_style/period_opinionator/Rakefile /period_opinionator/Rakefile
-ADD sample/rails_style/period_opinionator/Gemfile /period_opinionator/Gemfile
-ADD sample/rails_style/period_opinionator/lib/period_opinionator/version.rb /period_opinionator/lib/period_opinionator/version.rb
-ADD sample/rails_style/period_opinionator/period_opinionator.gemspec /period_opinionator/period_opinionator.gemspec
-WORKDIR /period_opinionator
-RUN sudo bundle install
-
-RUN sudo chown -R app /period_opinionator
-WORKDIR /period_opinionator
-
-RUN git init && \
-  git add . && \
-  git commit -m "commit for rake"
-
-RUN sudo rake install
-
-# TODO: remove me since I copy pasted this below some other installs...
-COPY sample/rails_style/period_opinionator /period_opinionator
-
-RUN git init && \
-  git add . && \
-  git commit -m "commit for rake"
-
-RUN sudo rake install
-RUN sudo chown -R app /period_opinionator
 
 ##################
 # Setup the apps #
 ##################
 
-# TODO: uncomment to make things easier
-# RUN sudo mkdir /assembly
-# RUN sudo chown -R app /assembly
-# RUN sudo mkdir -p /usr/share/nginx/html/cgi-bin
+RUN sudo mkdir /assembly
+RUN sudo chown -R app /assembly
+RUN sudo mkdir -p /usr/share/nginx/html/cgi-bin
 RUN sudo mkdir /apps
 RUN sudo mkdir /apps/rack
 RUN sudo mkdir /apps/rails
@@ -91,21 +61,14 @@ RUN sudo chown -R app /apps
 ADD sample/rails_style/text_correct/Gemfile /apps/rails/Gemfile
 ADD sample/rails_style/text_correct/Gemfile.lock /apps/rails/Gemfile.lock
 WORKDIR /apps/rails/text_correct
-RUN /bin/bash -l -c "cd /apps/rails/text_correct && sudo bundle install"
-
-# Installs period_opinionator
-WORKDIR /period_opinionator
-COPY sample/rails_style/period_opinionator /period_opinionator
-RUN sudo chown -R app /period_opinionator
-RUN sudo rake install
+RUN sudo bundle install
 
 
 ############################
 # Compile Assembly CGI bin #
 ############################
 
-# TODO: move me up
-RUN sudo apt-get install nasm
+
 
 RUN sudo mkdir /assembly
 ADD /sample/assembly/hello_asm.asm /assembly/hello_asm.asm
@@ -133,8 +96,8 @@ COPY sample/rails_style/ /apps/rails/
 RUN sudo chown -R app /apps
 
 WORKDIR /apps/rails/text_correct
-RUN /bin/bash -l -c "cd /apps/rails/text_correct && sudo bundle install"
-RUN /bin/bash -l -c "cd /apps/rails/text_correct && sudo bundle exec rake assets:precompile"
+RUN sudo bundle install
+RUN sudo bundle exec rake assets:precompile
 RUN /bin/bash -l -c "thin config -C /apps/rails/text_correct.yml -c /apps/rails/text_correct --servers 3 -e production -p 3003"
 
 
@@ -142,13 +105,14 @@ RUN /bin/bash -l -c "thin config -C /apps/rails/text_correct.yml -c /apps/rails/
 # Install #
 ###########
 
+# Nginx configs
+COPY resources/conf /etc/nginx
+COPY sample/web /usr/share/nginx/html
+
 ADD sample/hackme/production.db /usr/share/nginx/html/cgi-bin/production.db
 ADD sample/hackme/migrate_database /usr/share/nginx/html/cgi-bin/migrate_database
 ADD sample/hackme/intelligence /usr/share/nginx/html/cgi-bin/intelligence
 ADD sample/hackme/hackme.html /usr/share/nginx/html/hackme.html
-
-
-RUN sudo gem install sqlite3
 
 
 ############

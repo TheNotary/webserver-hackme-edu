@@ -46,7 +46,7 @@ group :development do
   gem 'spring'
 end
 
-gem 'period_opinionator', path: '/period_opinionator'
+gem 'period_opinionator'   # , path: '/period_opinionator'
 
 gem 'thin'
 gem 'rack'
