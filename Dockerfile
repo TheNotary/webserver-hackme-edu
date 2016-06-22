@@ -42,6 +42,7 @@ RUN echo "[user]\n  email = no@email.plz\n  name = TheNotary\n[push]\n  default 
 
 COPY resources/conf /etc/nginx
 
+# TODO: move this down towards the bottom... before the asm compile step though... maybe
 # these get a worked ruby demo available on port 80
 COPY sample/web /usr/share/nginx/html
 
@@ -77,6 +78,10 @@ RUN sudo chown -R app /period_opinionator
 # Setup the apps #
 ##################
 
+# TODO: uncomment to make things easier
+# RUN sudo mkdir /assembly
+# RUN sudo chown -R app /assembly
+# RUN sudo mkdir -p /usr/share/nginx/html/cgi-bin
 RUN sudo mkdir /apps
 RUN sudo mkdir /apps/rack
 RUN sudo mkdir /apps/rails
@@ -93,6 +98,22 @@ WORKDIR /period_opinionator
 COPY sample/rails_style/period_opinionator /period_opinionator
 RUN sudo chown -R app /period_opinionator
 RUN sudo rake install
+
+
+############################
+# Compile Assembly CGI bin #
+############################
+
+# TODO: move me up
+RUN sudo apt-get install nasm
+
+RUN sudo mkdir /assembly
+ADD /sample/assembly/correct.asm /assembly/correct.asm
+RUN sudo chown -R app /assembly
+WORKDIR /assembly
+RUN nasm -f elf64 correct.asm
+RUN ld -e _start -o correct_asm correct.o
+RUN sudo mv correct_asm /usr/share/nginx/html/cgi-bin/
 
 
 ######################

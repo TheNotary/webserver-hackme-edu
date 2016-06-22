@@ -2,3 +2,7 @@
 .settings
 .idea
 *.swp
+
+# Assembly artifacts
+sample/assembly/correct
+sample/assembly/correct.o
