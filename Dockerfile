@@ -18,7 +18,19 @@ RUN apt-get update && apt-get install -y nasm
 # For apache bench
 RUN apt-get update && apt-get install -y apache2-utils
 
+RUN echo deb http://http.debian.net/debian jessie-backports main >> /etc/apt/sources.list
+
+# JAVA:  Install Java.
+RUN apt-get update && apt-get install -y openjdk-8-jdk
+RUN update-alternatives --config java
+
+
+# JAVA:  Define commonly used JAVA_HOME variable
+# ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+
+
 RUN apt-get clean
+  
 
 ######################
 # Make non-root user #
