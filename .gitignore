@@ -5,4 +5,6 @@
 
 # Assembly artifacts
 sample/assembly/correct
-sample/assembly/correct.o
+sample/assembly/hello_64
+sample/assembly/*.o
+sample/assembly/*.lst

@@ -1,4 +1,9 @@
 ; http://asm.sourceforge.net/intro/hello.html
+; Build notes...
+; You may need to change elf64 to a different format depending on the type of OS you're running
+; use `nasm -hf` to see a list of them
+; $ nasm -f elf64 hello_asm.asm
+; $ ld -e _start -o hello_asm hello_asm.o
 
 section     .text
 global      _start                              ;must be declared for linker (ld)
@@ -32,8 +37,3 @@ msg                 db  'Hello, world!',0xa                 ;our dear string
 len                 equ $ - msg                             ;length of our dear string
 
 
-; Build notes...
-; You may need to change elf64 to a different format depending on the type of OS you're running
-; use `nasm -hf` to see a list of them
-; $ nasm -f elf64 hello_asm.asm
-; $ ld -e _start -o hello_asm hello_asm.o
