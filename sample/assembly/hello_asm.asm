@@ -1,3 +1,5 @@
+; exploit notes:  https://www.owasp.org/index.php/Buffer_Overflow_via_Environment_Variables
+
 ; http://asm.sourceforge.net/intro/hello.html
 ; Build notes...
 ; You may need to change elf64 to a different format depending on the type of OS you're running
