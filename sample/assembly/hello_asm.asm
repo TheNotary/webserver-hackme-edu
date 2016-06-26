@@ -20,12 +20,13 @@ _start:                                         ;tell linker entry point
     mov     eax,4                               ;system call number (sys_write)
     int     0x80                                ;call kernel
 
+    mov     ebx,0                               ;specify an exit code of zero
     mov     eax,1                               ;system call number (sys_exit)
     int     0x80                                ;call kernel
 
 section     .data
 
-contentType         db 'Content-type: application/json', 0xa, 0xa
+contentType         db 'Content-type: text/plain', 0xa, 0xa
 contentType_len     equ $ - contentType
 msg                 db  'Hello, world!',0xa                 ;our dear string
 len                 equ $ - msg                             ;length of our dear string

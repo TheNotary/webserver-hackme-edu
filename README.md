@@ -1,8 +1,4 @@
 TODO:  
-  - fix bug in index.html where path to rails app is messed up
-  - re-flow Dockerfile so the index.html file is moved into place after all the installation stuff... which should be dead simple...
-  - Hook in the assembly compiled cgi-bin on index.html
-  - Consolidate apt-get's near by each other... but don't merge them so it's easier to extract... add comments per apt-get string especially compiling ruby
   - Split this repo into two projects, one that's all about performance testing, and a second that's about pentesting
 
 

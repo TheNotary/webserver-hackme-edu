@@ -6,3 +6,4 @@ puts "Content-type: text/plain"
 puts
 
 puts "hello world ruby!!!"
+puts ENV.inspect

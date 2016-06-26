@@ -4,15 +4,21 @@ FROM nginx:1.9.7
 # System Deps #
 ###############
 
+# For fastcgi
 RUN apt-get update && apt-get install -y fcgiwrap curl && apt-get clean
 
-# for compiling asm files
-RUN sudo apt-get install nasm
-
+# For Compiling ruby and other langs
 RUN apt-get update && \
   apt-get install -y wget git nodejs ruby-dev curl patch gawk g++ gcc make libc6-dev patch libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev sudo vim && \
   apt-get clean
 
+# for compiling asm files
+RUN apt-get update && apt-get install -y nasm
+
+# For apache bench
+RUN apt-get update && apt-get install -y apache2-utils
+
+RUN apt-get clean
 
 ######################
 # Make non-root user #
@@ -58,8 +64,8 @@ RUN sudo mkdir /apps/rails
 RUN sudo chown -R app /apps
 
 # Rails app dependencies
-ADD sample/rails_style/text_correct/Gemfile /apps/rails/Gemfile
-ADD sample/rails_style/text_correct/Gemfile.lock /apps/rails/Gemfile.lock
+ADD sample/rails_style/text_correct/Gemfile /apps/rails/text_correct/Gemfile
+ADD sample/rails_style/text_correct/Gemfile.lock /apps/rails/text_correct/Gemfile.lock
 WORKDIR /apps/rails/text_correct
 RUN sudo bundle install
 
@@ -68,9 +74,6 @@ RUN sudo bundle install
 # Compile Assembly CGI bin #
 ############################
 
-
-
-RUN sudo mkdir /assembly
 ADD /sample/assembly/hello_asm.asm /assembly/hello_asm.asm
 RUN sudo chown -R app /assembly
 WORKDIR /assembly
