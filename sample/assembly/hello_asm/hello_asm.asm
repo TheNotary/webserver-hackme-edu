@@ -1,5 +1,7 @@
 ; exploit notes:  https://www.owasp.org/index.php/Buffer_Overflow_via_Environment_Variables
 
+; https://www.onlinedisassembler.com/odaweb/WcfZvyeK
+
 ; http://asm.sourceforge.net/intro/hello.html
 ; Build notes...
 ; You may need to change elf64 to a different format depending on the type of OS you're running
@@ -37,5 +39,3 @@ contentType         db 'Content-type: text/plain', 0xa, 0xa
 contentType_len     equ $ - contentType
 msg                 db  'Hello, world!',0xa                 ;our dear string
 len                 equ $ - msg                             ;length of our dear string
-
-

@@ -82,18 +82,6 @@ WORKDIR /apps/rails/text_correct
 RUN sudo bundle install
 
 
-############################
-# Compile Assembly CGI bin #
-############################
-
-ADD /sample/assembly/hello_asm.asm /assembly/hello_asm.asm
-RUN sudo chown -R app /assembly
-WORKDIR /assembly
-RUN nasm -f elf64 hello_asm.asm
-RUN ld -e _start -o hello_asm hello_asm.o
-RUN sudo mv hello_asm /usr/share/nginx/html/cgi-bin/
-
-
 ######################
 # Setup the rack app #
 ######################
@@ -114,6 +102,18 @@ WORKDIR /apps/rails/text_correct
 RUN sudo bundle install
 RUN sudo bundle exec rake assets:precompile
 RUN /bin/bash -l -c "thin config -C /apps/rails/text_correct.yml -c /apps/rails/text_correct --servers 3 -e production -p 3003"
+
+
+############################
+# Compile Assembly CGI bin #
+############################
+
+COPY /sample/assembly /assembly
+RUN sudo chown -R app /assembly
+
+# Make all the assembly projects
+WORKDIR /assembly
+RUN for D in *; do [ -d "${D}" ] && cd ${D} && make && sudo mv ${D} /usr/share/nginx/html/cgi-bin/ && cd ..; done
 
 
 ###########
