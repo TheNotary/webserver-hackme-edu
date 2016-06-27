@@ -4,7 +4,8 @@
 *.swp
 
 # Assembly artifacts
-sample/assembly/correct
-sample/assembly/asm_c_call
-sample/assembly/*.o
-sample/assembly/*.lst
+sample/assembly/hello_asm/hello_asm
+sample/assembly/correct_asm/correct_asm
+sample/assembly/asm_c_call/asm_c_call
+sample/assembly/**/*.o
+sample/assembly/**/*.lst
