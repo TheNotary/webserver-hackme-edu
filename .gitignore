@@ -9,3 +9,6 @@ sample/assembly/correct_asm/correct_asm
 sample/assembly/asm_c_call/asm_c_call
 sample/assembly/**/*.o
 sample/assembly/**/*.lst
+
+# C artifacts
+sample/c/hello_c/hello_c
