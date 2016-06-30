@@ -11,4 +11,4 @@ echo
 # body #
 ########
 
-echo -n Hello World !
+echo "Hello World !"

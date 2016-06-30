@@ -1,0 +1,14 @@
+#!/bin/bash
+
+##########
+# header #
+##########
+
+echo Content-type: text/html
+echo
+
+########
+# body #
+########
+
+echo "<html><body><h1>Bash CRUD!</h1><p>Welcome to bash crud!</p></body></html>"

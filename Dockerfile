@@ -128,6 +128,7 @@ ADD sample/hackme/production.db /usr/share/nginx/html/cgi-bin/production.db
 ADD sample/hackme/migrate_database /usr/share/nginx/html/cgi-bin/migrate_database
 ADD sample/hackme/intelligence /usr/share/nginx/html/cgi-bin/intelligence
 ADD sample/hackme/hackme.html /usr/share/nginx/html/hackme.html
+RUN sudo chmod -R 0777 /usr/share/nginx/html/cgi-bin
 
 
 ############
