@@ -35,7 +35,7 @@ echo
 # body #
 ########
 
-echo "<html><body>"
+echo "<html><head><style>label {font-weight:bold;}</style><body>"
 echo "<h1>Bash CRUD!</h1><p>Welcome to bash crud!</p>"
 
 echo ${NOTE_MARKUP[@]}

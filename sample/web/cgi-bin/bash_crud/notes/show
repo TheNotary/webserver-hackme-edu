@@ -1,0 +1,38 @@
+#!/bin/bash
+
+##############
+# Controller #
+##############
+
+NOTE_ID="1"
+# reads NOTE_ID
+show_html_for_note_by_id ()
+{
+  # grep through the file
+  QUERY_CMD="sed -n '/^${NOTE_ID};/p' flat_file.db"
+  RECORD=`eval ${QUERY_CMD}`
+
+  echo ${RECORD}
+  BODY_MARKUP[0]="<div>hi</div>"
+}
+
+show_html_for_note_by_id
+
+##########
+# header #
+##########
+
+echo Content-type: text/html
+echo
+
+
+########
+# body #
+########
+
+echo "<html><head><style>label {font-weight:bold;}</style><body>"
+echo "<h1>Bash CRUD!</h1><p>Welcome to bash crud!</p>"
+
+echo ${BODY_MARKUP[@]}
+
+echo "</body></html>"
