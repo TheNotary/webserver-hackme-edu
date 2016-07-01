@@ -1,5 +1,54 @@
 #!/bin/bash
 
+##############
+# Controller #
+##############
+
+RAW_NOTES=`cat flat_file.db`
+
+# Create an array, each element holds a line and thus each element can be iterated over to print it's data
+declare -a NOTE_LINES
+
+
+
+# echo ${NOTE_LINES[@]}
+
+
+
+
+get_notes_array ()
+{
+  COUNT=$((0))
+  IFS=','
+  # iterate over each line of flat_file.db and send it's input into an element of NOTE_LINES
+  while read -ra p; do
+    NOTE_LINES[$((COUNT))]=${p[@]}
+    # echo $p
+    COUNT=$((COUNT+1))
+  done <flat_file.db
+}
+
+echo_notes_in_html ()
+{
+  # IFS=',' read -ra NOTE_LINES <<< "$IN"
+  for i in "${NOTE_LINES[@]}"; do
+      # process "$i"
+      echo "<div>"
+      echo ${i[0]}
+      echo "</div>"
+  done
+}
+
+
+get_notes_array
+# echo ${NOTE_LINES[@]}
+
+echo_notes_in_html
+
+#
+# NOTES=``
+
+
 ##########
 # header #
 ##########
@@ -7,8 +56,25 @@
 echo Content-type: text/html
 echo
 
+
 ########
 # body #
 ########
 
-echo "<html><body><h1>Bash CRUD!</h1><p>Welcome to bash crud!</p></body></html>"
+echo "<html><body>"
+echo "<h1>Bash CRUD!</h1><p>Welcome to bash crud!</p>"
+
+echo "<div>"
+
+# for i in "${RAW_NOTES[@]}"; do
+#     # process "$i"
+#     echo "<div>"
+#     echo $i
+#     echo "</div>"
+# done
+
+echo "</div>"
+
+# echo "${ALL_NOTES}"
+
+echo "</body></html>"
