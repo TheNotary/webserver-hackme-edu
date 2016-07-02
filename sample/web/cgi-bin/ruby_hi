@@ -6,4 +6,13 @@ puts "Content-type: text/plain"
 puts
 
 puts "hello world ruby!!!"
+puts "ENV is...."
 puts ENV.inspect
+puts
+puts "argv is..."
+
+puts STDIN.read
+
+# STDIN.read.split("\n").each do |a|
+#    puts a
+# end

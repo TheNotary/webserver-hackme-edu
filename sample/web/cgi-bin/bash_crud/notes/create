@@ -1,0 +1,67 @@
+#!/bin/bash
+
+source functions
+
+##############
+# Controller #
+##############
+
+# get all ids from db
+##
+# use grep for each line, and build up an array of integers
+NOTES=`cat flat_file.db | grep -P '^(\d*);' -o | sed 's/;//g'`
+NOTES=(`echo ${NOTES}`)
+echo ${NOTES}
+
+
+
+# sort to get greatest number
+# add one
+# replace row in db with ""
+
+# POST_PARAMS=`cat "${1:-/dev/stdin}" > "${2:-/dev/stdout}"`
+
+
+POST_PARAMS="title=none&body=none;"
+# Do regex to collect /title=()[&$]/
+
+# extract_title_from_query_string
+TITLE=""
+TITLE=`echo ${POST_PARAMS} | grep -P 'title=(.*)&' -o | tr \& ' '`
+TITLE=`sed 's/;//g' <<< ${TITLE}`
+TITLE=`sed 's/title=//g' <<< ${TITLE}`
+
+# extract_body_from_query_string
+BODY=""
+BODY=`echo ${POST_PARAMS} | grep -P 'body=(.*)$' -o | tr \& ' '`
+BODY=`sed 's/;//g' <<< ${BODY}`
+BODY=`sed 's/body=//g' <<< ${BODY}`
+
+# save_note_to_database
+
+
+# NOTE_ID=1
+# RECORD=`eval ${QUERY_CMD}`
+
+
+##########
+# header #
+##########
+
+echo Content-type: text/html
+echo
+
+
+########
+# body #
+########
+
+echo "<html><head><style>label {font-weight:bold;}</style><body>"
+
+echo "<div>Note Created!</div>"
+
+# echo ${POST_PARAMS}
+echo ${TITLE}
+echo ${BODY}
+
+echo "</body></html>"

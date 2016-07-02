@@ -1,22 +1,18 @@
 #!/bin/bash
 
+source functions
+
 ##############
 # Controller #
 ##############
 
+# REQUEST_METHOD=GET
+
 NOTE_ID="1"
-# reads NOTE_ID
-show_html_for_note_by_id ()
-{
-  # grep through the file
-  QUERY_CMD="sed -n '/^${NOTE_ID};/p' flat_file.db"
-  RECORD=`eval ${QUERY_CMD}`
 
-  echo ${RECORD}
-  BODY_MARKUP[0]="<div>hi</div>"
-}
-
+# Populates BODY_MARKUP
 show_html_for_note_by_id
+
 
 ##########
 # header #
