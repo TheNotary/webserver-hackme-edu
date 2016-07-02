@@ -31,6 +31,7 @@ echo "<h1>Bash CRUD!</h1><p>Welcome to bash crud!</p>"
 
 echo ${BODY_MARKUP}
 
-echo "<a href='/cgi-bin/bash_crud/notes'>back to index</a>"
+echo "<div><a href='/cgi-bin/bash_crud/notes'>back to index</a></div>"
+echo "<div><a href='/cgi-bin/bash_crud/notes/${ID}/edit'>edit</a></div>"
 
 echo "</body></html>"
