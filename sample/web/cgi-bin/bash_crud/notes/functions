@@ -50,7 +50,6 @@ convert_notes_into_markup ()
     markup="<div>
       <label>title:</label><div>${title}</div> <label>body:</label><div>${body}</div>
 
-
       <button onclick='deleteAction(${p[0]})'>Delete</button>
     </div><br>"
     NOTE_MARKUP[$((COUNT))]=${markup}

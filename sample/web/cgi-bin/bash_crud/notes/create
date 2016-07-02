@@ -23,21 +23,18 @@ ID=`calculate_next_id`
 TITLE=""
 TITLE=`echo ${POST_PARAMS} | grep -P 'title=([^&]*)&' -o | tr \& ' '`
 TITLE=`sed 's/;//g' <<< ${TITLE}`
+TITLE=`sed 's/\+/%20/g' <<< ${TITLE}`
 TITLE=`sed 's/title=//g' <<< ${TITLE}`
 
 # extract_body_from_query_string
 BODY=""
 BODY=`echo ${POST_PARAMS} | grep -P 'body=([^&]*)&' -o | tr \& ' '`
 BODY=`sed 's/;//g' <<< ${BODY}`
+BODY=`sed 's/\+/%20/g' <<< ${BODY}`
 BODY=`sed 's/body=//g' <<< ${BODY}`
 
 # save_note_to_database
 echo "${ID}; ${TITLE}; ${BODY}" >> flat_file.db
-
-echo "title=asdf+asdf&body=asdf+asdf+asdf&commit=Submit" | grep -P 'title=(.*)&' -o
-
-# NOTE_ID=1
-# RECORD=`eval ${QUERY_CMD}`
 
 
 ##########
