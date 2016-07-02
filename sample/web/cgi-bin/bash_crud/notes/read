@@ -8,9 +8,10 @@ source functions
 
 # REQUEST_METHOD=GET
 NOTE_ID="1"
+NOTE_ID="${ID}"
 
 # Populates BODY_MARKUP
-show_html_for_note_by_id
+BODY_MARKUP=`show_html_for_note_by_id ${NOTE_ID}`
 
 
 ##########
@@ -28,6 +29,6 @@ echo
 echo "<html><head><style>label {font-weight:bold;}</style><body>"
 echo "<h1>Bash CRUD!</h1><p>Welcome to bash crud!</p>"
 
-echo ${BODY_MARKUP[@]}
+echo ${BODY_MARKUP}
 
 echo "</body></html>"
