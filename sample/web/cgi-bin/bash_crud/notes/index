@@ -29,4 +29,6 @@ echo "<h1>Bash CRUD!</h1><p>Welcome to bash crud!</p>"
 
 echo ${NOTE_MARKUP[@]}
 
+echo "<a href='/cgi-bin/bash_crud/notes/new'>New</a>"
+
 echo "</body></html>"

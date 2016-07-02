@@ -6,17 +6,14 @@ source functions
 # Controller #
 ##############
 
+# REQUEST_URI="/cgi-bin/bash_crud/notes/1"
 # get_id_from_request_uri
-
 get_id_from_request_uri ()
 {
-  REQUEST_URI="/cgi-bin/bash_crud/notes/1"
   echo ${REQUEST_URI} | egrep -o '[0-9]+$'
 }
 
-NOTE_ID=`get_id_from_request_uri`
-
-# ${REQUEST_METHOD}
+NOTE_ID=`get_id_from_request_uri ${REQUEST_URI}`
 
 # 1) Get the record to delete
 QUERY_CMD="sed -n '/^${NOTE_ID};/p' flat_file.db"
@@ -26,7 +23,7 @@ RECORD=`eval ${QUERY_CMD}`
 # DB_AFTER_DELETION=`sed '/1; important note; I have an important note/d' flat_file.db`
 DEL_RECORD_CMD="sed '/${RECORD}/d' flat_file.db"
 DB_AFTER_DELETION=`eval ${DEL_RECORD_CMD}`
-`echo ${DB_AFTER_DELETION} > flat_file.db`
+`echo -e "${DB_AFTER_DELETION}" > flat_file.db`
 
 
 ##########

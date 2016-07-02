@@ -1,0 +1,30 @@
+#!/bin/bash
+
+##########
+# header #
+##########
+
+echo Content-type: text/html
+echo
+
+
+########
+# body #
+########
+
+echo "<html><head>
+        <meta http-equiv='content-type' content='text/html; charset=utf-8' />
+        <script src='/jquery-3.0.0.min.js'></script>
+        <script src='/bash_crud.js'></script>
+        <style>label {font-weight:bold;}</style><body>"
+
+echo "<h1>New</h1><p>Create a new note!</p>"
+
+echo "<form action='/cgi-bin/bash_crud/notes/create' method='post'>
+        <input id='title' name='title' type='text'></input>
+        <input id='body' name='body' type='text'></input>
+        <input type='submit' name='commit' value='Submit' />
+      </form>"
+
+
+echo "</body></html>"
