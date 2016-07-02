@@ -7,7 +7,6 @@ source functions
 ##############
 
 # REQUEST_METHOD=GET
-
 NOTE_ID="1"
 
 # Populates BODY_MARKUP

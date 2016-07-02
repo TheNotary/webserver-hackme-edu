@@ -6,13 +6,35 @@ source functions
 # Controller #
 ##############
 
-# get all ids from db
-##
-# use grep for each line, and build up an array of integers
-NOTES=`cat flat_file.db | grep -P '^(\d*);' -o | sed 's/;//g'`
-NOTES=(`echo ${NOTES}`)
-echo ${NOTES}
+## calculate_next_id
+calculate_next_id ()
+{
+  # get all ids from db
+  NOTES=`cat flat_file.db | grep -P '^(\d*);' -o | sed 's/;//g'`
+  NOTES=(`echo ${NOTES}`)
 
+  find_max_in_array ()
+  {
+    max=0
+    for i in "${@}" # "${NOTES[@]}"
+    do
+      :
+      ((i > max)) && max=$i
+      # echo "${i} was in here"
+      # do whatever on $i
+    done
+
+    # echo "max was ${max}"
+    echo ${max}
+  }
+
+  new_id=`find_max_in_array ${NOTES[@]}`
+  new_id=$((new_id+1))
+  echo ${new_id}
+}
+
+new_id=`calculate_next_id`
+echo "The next id is:  ${new_id}"
 
 
 # sort to get greatest number
