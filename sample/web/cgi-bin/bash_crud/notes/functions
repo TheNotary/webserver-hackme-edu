@@ -40,7 +40,12 @@ convert_notes_into_markup ()
   while read -ra p; do
     title=`sed 's/%20/ /g' <<< ${p[1]}`
     body=`sed 's/%20/ /g' <<< ${p[2]}`
-    markup="<div><label>title:</label><div>${title}</div> <label>body:</label><div>${body}</div></div><br>"
+    markup="<div>
+      <label>title:</label><div>${title}</div> <label>body:</label><div>${body}</div>
+
+
+      <button onclick='deleteAction(1)'>Delete</button>
+    </div><br>"
     NOTE_MARKUP[$((COUNT))]=${markup}
     COUNT=$((COUNT+1))
   done <flat_file.db

@@ -21,7 +21,10 @@ echo
 # body #
 ########
 
-echo "<html><head><style>label {font-weight:bold;}</style><body>"
+echo "<html><head>
+        <script src='/jquery-3.0.0.min.js'></script>
+        <script src='/bash_crud.js'></script>
+        <style>label {font-weight:bold;}</style><body>"
 echo "<h1>Bash CRUD!</h1><p>Welcome to bash crud!</p>"
 
 echo ${NOTE_MARKUP[@]}
