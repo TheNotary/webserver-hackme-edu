@@ -15,6 +15,8 @@ show_html_for_note_by_id ()
   RECORD=`eval ${QUERY_CMD}`
 
   parse_record_to_collect_values # sets TITLE and BODY
+  TITLE=`sed 's/%20/ /g' <<< ${TITLE}`
+  BODY=`sed 's/%20/ /g' <<< ${BODY}`
   markup="<div><label>title:</label><div>${TITLE}</div> <label>body:</label><div>${BODY}</div></div><br>"
 
   BODY_MARKUP[0]=${markup}
