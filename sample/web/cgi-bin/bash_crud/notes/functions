@@ -21,6 +21,14 @@ show_html_for_note_by_id ()
   echo ${markup}
 }
 
+query_record_by_id ()
+{
+    QUERY_CMD="sed -n '/^$1;/p' flat_file.db"
+    # grep through the file
+    RECORD=`eval ${QUERY_CMD}`
+    echo ${RECORD}
+}
+
 # TODO:  make this echo out so the value can be set in a more declaritive manor
 # TODO: make it take an argument where `p` is used now...
 parse_record_to_collect_values ()
