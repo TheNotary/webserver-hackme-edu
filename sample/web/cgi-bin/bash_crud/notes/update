@@ -1,0 +1,51 @@
+#!/bin/bash
+
+source functions
+POST_PARAMS=`cat "${1:-/dev/stdin}" > "${2:-/dev/stdout}"`
+
+##############
+# Controller #
+##############
+
+# parse_record_to_collect_values
+
+# query the record
+RECORD=`query_record_by_id ${ID}`
+# do a sed that updates the file
+
+attributes=(`extract_title_from_post_data ${POST_PARAMS}`)
+TITLE=${attributes[0]}
+BODY=${attributes[1]}
+
+UPDATE_RECORD_CMD="sed 's/${RECORD}/${ID}; ${TITLE}; ${BODY}/g' flat_file.db"
+
+DB_AFTER_UPDATE=`eval ${UPDATE_RECORD_CMD}`
+`echo -e "${DB_AFTER_UPDATE}" > flat_file.db`
+
+
+##########
+# header #
+##########
+
+echo Content-type: text/html
+echo
+
+
+########
+# body #
+########
+
+echo "<html><head>
+        <meta http-equiv='content-type' content='text/html; charset=utf-8' />
+        <script src='/jquery-3.0.0.min.js'></script>
+        <script src='/bash_crud.js'></script>
+        <style>label {font-weight:bold;}</style><body>"
+
+echo "<h1>Update Worked!</h1><a href='/cgi-bin/bash_crud/notes'>back to index</a>"
+echo "<br>"
+echo "Check the command: ${UPDATE_RECORD_CMD}"
+echo "Check the DB_AFTER_UPDATE: ${DB_AFTER_UPDATE}"
+echo "Check post params... ${POST_PARAMS}"
+echo "Check BODY... ${BODY}"
+
+echo "</body></html>"

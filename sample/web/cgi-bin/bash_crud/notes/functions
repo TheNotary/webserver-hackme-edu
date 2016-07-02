@@ -59,6 +59,8 @@ convert_notes_into_markup ()
       <label>title:</label><div>${title}</div> <label>body:</label><div>${body}</div>
 
       <button onclick='deleteAction(${p[0]})'>Delete</button>
+      <a href='/cgi-bin/bash_crud/notes/${p[0]}/edit'>edit</a>
+      <a href='/cgi-bin/bash_crud/notes/${p[0]}'>show</a>
     </div><br>"
     NOTE_MARKUP[$((COUNT))]=${markup}
     COUNT=$((COUNT+1))
@@ -68,6 +70,25 @@ convert_notes_into_markup ()
 
 
 ### CREATE
+
+# create
+extract_title_from_post_data ()
+{
+  TITLE=""
+  TITLE=`echo ${1} | grep -P 'title=([^&]*)&' -o | tr \& ' '`
+  TITLE=`sed 's/;//g' <<< ${TITLE}`
+  TITLE=`sed 's/\+/%20/g' <<< ${TITLE}`
+  TITLE=`sed 's/title=//g' <<< ${TITLE}`
+
+  # extract_body_from_query_string
+  BODY=""
+  BODY=`echo ${1} | grep -P 'body=([^&]*)&' -o | tr \& ' '`
+  BODY=`sed 's/;//g' <<< ${BODY}`
+  BODY=`sed 's/\+/%20/g' <<< ${BODY}`
+  BODY=`sed 's/body=//g' <<< ${BODY}`
+
+  echo "${TITLE} ${BODY}"
+}
 
 ## calculate_next_id
 # This will read the database and figure out what the max id is in that file and

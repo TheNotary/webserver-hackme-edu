@@ -8,3 +8,14 @@ function deleteAction(id) {
     }
   });
 }
+
+function putAction(id) {
+  $.ajax({
+    url: '/cgi-bin/bash_crud/notes/' + id,
+    data: { title: $('#title').val(), body: $('#body').val(), subject: "submit" },
+    type: 'PUT',
+    success: function(result) {
+      // location.reload();
+    }
+  });
+}

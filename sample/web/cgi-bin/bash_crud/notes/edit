@@ -30,11 +30,10 @@ echo "<html><head>
 
 echo "<h1>Edit</h1><p>Edit this existing note!</p>"
 
-echo "<form action='/cgi-bin/bash_crud/notes/${ID}' method='put'
-        accept-charset='UTF-8'>
+echo "<div>
         <input id='title' name='title' type='text' value='${TITLE}'></input>
         <input id='body' name='body' type='text' value='${BODY}'></input>
-        <input type='submit' name='commit' value='Submit' />
-      </form>"
+        <button onclick='putAction(${ID})'>Update</button>
+      </div>"
 
 echo "</body></html>"
