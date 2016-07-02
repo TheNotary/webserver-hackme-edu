@@ -16,6 +16,7 @@ function putAction(id) {
     type: 'PUT',
     success: function(result) {
       // location.reload();
+      window.location.href = '../'+id;
     }
   });
 }
