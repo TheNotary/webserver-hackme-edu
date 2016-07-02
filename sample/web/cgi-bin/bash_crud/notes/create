@@ -1,50 +1,21 @@
 #!/bin/bash
 
+# Test...
+# curl --data "title=my%20new%20note&body=BLAHHHH"  http://127.0.0.1/cgi-bin/bash_crud/notes/create
+
 source functions
 
 ##############
 # Controller #
 ##############
 
-## calculate_next_id
-calculate_next_id ()
-{
-  # get all ids from db
-  NOTES=`cat flat_file.db | grep -P '^(\d*);' -o | sed 's/;//g'`
-  NOTES=(`echo ${NOTES}`)
+# Read the post data from stdin
+POST_PARAMS=`cat "${1:-/dev/stdin}" > "${2:-/dev/stdout}"`
 
-  find_max_in_array ()
-  {
-    max=0
-    for i in "${@}" # "${NOTES[@]}"
-    do
-      :
-      ((i > max)) && max=$i
-      # echo "${i} was in here"
-      # do whatever on $i
-    done
+ID=`calculate_next_id`
+# echo "The next id is:  ${ID}"
 
-    # echo "max was ${max}"
-    echo ${max}
-  }
-
-  new_id=`find_max_in_array ${NOTES[@]}`
-  new_id=$((new_id+1))
-  echo ${new_id}
-}
-
-new_id=`calculate_next_id`
-echo "The next id is:  ${new_id}"
-
-
-# sort to get greatest number
-# add one
-# replace row in db with ""
-
-# POST_PARAMS=`cat "${1:-/dev/stdin}" > "${2:-/dev/stdout}"`
-
-
-POST_PARAMS="title=none&body=none;"
+# POST_PARAMS="title=none&body=none;"
 # Do regex to collect /title=()[&$]/
 
 # extract_title_from_query_string
@@ -60,6 +31,8 @@ BODY=`sed 's/;//g' <<< ${BODY}`
 BODY=`sed 's/body=//g' <<< ${BODY}`
 
 # save_note_to_database
+echo "${ID}; ${TITLE}; ${BODY}" >> flat_file.db
+
 
 
 # NOTE_ID=1
@@ -83,6 +56,7 @@ echo "<html><head><style>label {font-weight:bold;}</style><body>"
 echo "<div>Note Created!</div>"
 
 # echo ${POST_PARAMS}
+echo ${ID}
 echo ${TITLE}
 echo ${BODY}
 

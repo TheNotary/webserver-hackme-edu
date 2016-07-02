@@ -38,11 +38,43 @@ convert_notes_into_markup ()
   IFS=';'
   # iterate over each line of flat_file.db and send it's input into an element of NOTE_LINES
   while read -ra p; do
-    # NOTE_MARKUP[$((COUNT))]=${p[@]}
-    title=${p[1]}
-    body=${p[2]}
+    title=`sed 's/%20/ /g' <<< ${p[1]}`
+    body=`sed 's/%20/ /g' <<< ${p[2]}`
     markup="<div><label>title:</label><div>${title}</div> <label>body:</label><div>${body}</div></div><br>"
     NOTE_MARKUP[$((COUNT))]=${markup}
     COUNT=$((COUNT+1))
   done <flat_file.db
+}
+
+
+
+### CREATE
+
+## calculate_next_id
+# This will read the database and figure out what the max id is in that file and
+# then return it+1
+calculate_next_id ()
+{
+  # get all ids from db
+  NOTES=`cat flat_file.db | grep -P '^(\d*);' -o | sed 's/;//g'`
+  NOTES=(`echo ${NOTES}`)
+
+  find_max_in_array ()
+  {
+    max=0
+    for i in "${@}" # "${NOTES[@]}"
+    do
+      :
+      ((i > max)) && max=$i
+      # echo "${i} was in here"
+      # do whatever on $i
+    done
+
+    # echo "max was ${max}"
+    echo ${max}
+  }
+
+  new_id=`find_max_in_array ${NOTES[@]}`
+  new_id=$((new_id+1))
+  echo ${new_id}
 }
