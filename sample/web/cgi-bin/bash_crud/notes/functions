@@ -42,6 +42,9 @@ convert_notes_into_markup ()
   IFS=';'
   # iterate over each line of flat_file.db and send it's input into an element of NOTE_LINES
   while read -ra p; do
+    # If we're reading an empty line... skip!
+    [ -z "$p" ] && continue
+
     title=`sed 's/%20/ /g' <<< ${p[1]}`
     body=`sed 's/%20/ /g' <<< ${p[2]}`
     markup="<div>
