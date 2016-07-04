@@ -1,6 +1,8 @@
 require 'period_opinionator'
-require './some_middleware'
 require 'json'
+
+# require './some_middleware'
+# use SomeMiddleware
 
 
 class Corrector
@@ -19,7 +21,5 @@ class Corrector
     resp
   end
 end
-
-use SomeMiddleware
 
 run Corrector.new

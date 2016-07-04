@@ -10,6 +10,9 @@ bash -l -c "thin start -C /apps/rack/a_ruby_server.yml -A rack"
 # Boots the rails app
 bash -l -c "thin start -C /apps/rails/text_correct.yml"
 
+# Boots the node app
+bash -l -c "nodejs /apps/node/node_server.js &"
+
 # Boot up the fastcgi handler that executes arbitrary scripts on server side
 sudo spawn-fcgi -s /var/run/fcgiwrap.socket /usr/sbin/fcgiwrap
 

@@ -34,7 +34,7 @@ RUN update-alternatives --config java
 
 
 RUN apt-get clean
-  
+
 
 ######################
 # Make non-root user #
@@ -91,6 +91,7 @@ RUN sudo bundle install
 ###################################################################
 
 RUN sudo apt-get install -y php5-cli
+RUN sudo apt-get install -y php5-fpm
 
 
 ######################
@@ -113,6 +114,14 @@ WORKDIR /apps/rails/text_correct
 RUN sudo bundle install
 RUN sudo bundle exec rake assets:precompile
 RUN /bin/bash -l -c "thin config -C /apps/rails/text_correct.yml -c /apps/rails/text_correct --servers 3 -e production -p 3003"
+
+
+######################
+# Setup the Node App #
+######################
+
+WORKDIR /apps/rails/text_correct
+COPY sample/node_style /apps/node/
 
 
 ############################
