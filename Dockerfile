@@ -86,6 +86,13 @@ WORKDIR /apps/rails/text_correct
 RUN sudo bundle install
 
 
+###################################################################
+# Additions that need to be cleaned upwards when I have bandwidth #
+###################################################################
+
+RUN sudo apt-get install -y php5-cli
+
+
 ######################
 # Setup the rack app #
 ######################
