@@ -4,6 +4,10 @@ FROM nginx:1.9.7
 # System Deps #
 ###############
 
+# IMPORTANT NOTE:  some of this stuff didn't install clean on another machine.
+# May need to add an apt-get install -y apt-utils and --fix-missing to
+# apt-get install commands
+
 # For fastcgi
 RUN apt-get update && apt-get install -y fcgiwrap curl && apt-get clean
 
@@ -130,6 +134,14 @@ ADD sample/hackme/intelligence /usr/share/nginx/html/cgi-bin/intelligence
 ADD sample/hackme/hackme.html /usr/share/nginx/html/hackme.html
 RUN sudo chmod -R 0777 /usr/share/nginx/html/cgi-bin
 
+#############
+# perf_test #
+#############
+
+RUN sudo mkdir /perf_test
+COPY perf_test /perf_test
+RUN sudo chown -R app /perf_test
+
 
 ############
 # Conclude #
@@ -141,5 +153,6 @@ COPY entrypoint.sh /sbin/entrypoint.sh
 RUN echo ". /sbin/entrypoint.sh" > /home/app/.bash_history
 WORKDIR /apps/rails/text_correct
 WORKDIR /usr/share/nginx/html/cgi-bin/
+WORKDIR /perf_test
 
 ENTRYPOINT ["/sbin/entrypoint.sh"]

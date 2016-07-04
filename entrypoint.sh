@@ -14,6 +14,6 @@ bash -l -c "thin start -C /apps/rails/text_correct.yml"
 sudo spawn-fcgi -s /var/run/fcgiwrap.socket /usr/sbin/fcgiwrap
 
 # Boot the webserver which uses proxy_pass to get serverside execution of scripts
-sudo nginx -g "daemon off;"
+# sudo nginx -g "daemon off;"
 
-# sudo nginx -g "daemon on;"
+sudo nginx -g "daemon on;"

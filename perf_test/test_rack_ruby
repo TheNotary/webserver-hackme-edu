@@ -1,0 +1,9 @@
+#!/bin/bash
+
+N_REQUESTS=100
+CONCURRENCY=10
+
+SCRIPT_NAME=`basename "$0"` 
+
+ab -T 'application/x-www-form-urlencoded' -n ${N_REQUESTS} -c ${CONCURRENCY} -p correct.data http://127.0.0.1:80/rack_app/correct > "${SCRIPT_NAME}.result"
+
