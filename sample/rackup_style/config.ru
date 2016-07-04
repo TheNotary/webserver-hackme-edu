@@ -1,8 +1,9 @@
 require 'period_opinionator'
+require './some_middleware'
 require 'json'
 
-class Greeter
 
+class Corrector
   def call(env)
     req = Rack::Request.new(env)
     resp = Rack::Response.new
@@ -17,7 +18,8 @@ class Greeter
 
     resp
   end
-
 end
 
-run Greeter.new
+use SomeMiddleware
+
+run Corrector.new
